@@ -29,15 +29,15 @@ Route::post('/register', 'auth\RegisterController@register')->name('register.act
 
 Route::prefix('/tarefas')->group(function(){
 
-    Route::get('/', 'TarefasController@list')->name('tarefas.list')->middleware('auth'); //Listagem de tarefas
+    Route::get('/', 'TarefasController@list')->name('tarefas.list'); //Listagem de tarefas
 
-    Route::get('add', 'TarefasController@add')->name('tarefas.add')->middleware('auth'); //Tela de adição de nova tarefa
+    Route::get('add', 'TarefasController@add')->name('tarefas.add'); //Tela de adição de nova tarefa
     Route::post('add', 'TarefasController@addAction'); //Ação de adição de nova tarefa
 
-    Route::get('edit/{id}', 'TarefasController@edit')->name('tarefas.edit')->middleware('auth'); //Tela de edição
+    Route::get('edit/{id}', 'TarefasController@edit')->name('tarefas.edit'); //Tela de edição
     Route::post('edit/{id}', 'TarefasController@editAction'); //Ação de edição
 
-    Route::get('delete/{id}', 'TarefasController@del')->name('tarefas.del')->middleware('auth'); //Ação de apagar
+    Route::get('delete/{id}', 'TarefasController@del')->name('tarefas.del'); //Ação de apagar
 
     Route::get('marcar/{id}', 'TarefasController@done')->name('tarefas.done'); // Marcar resolvido ou não
 

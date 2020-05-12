@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        //Permissões de Usuários. Só pode adicionar outros usuários se for um usuário Admin
+        Gate::define('add-user', function($user){
+            return $user->admin === 1 ? true : false;
+        });
     }
 }

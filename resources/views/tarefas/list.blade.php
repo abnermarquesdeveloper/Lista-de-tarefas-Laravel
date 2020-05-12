@@ -5,9 +5,11 @@
 @section('content')
     <h1>Lista de tarefas</h1>
 
-    <a href="/logout">Sair</a><br/>
+    <strong>Olá, {{ $name }}</strong> - <a href="/logout">Sair</a><br/><br/>
 
-    <a href="{{ route('tarefas.add') }}">Adicionar nova tarefa</a>
+    @if($permissao)
+        <a href="{{ route('tarefas.add') }}">Adicionar nova tarefa</a>
+    @endif
 
     @if(count($list) > 0)
         <ul>

@@ -5,20 +5,38 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Tarefa;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TarefasController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function list(){
+        //Pega o usuário que está logado. Pode também usar o "request" request->user();
+        $user = Auth::user();
+
         //$list = DB::select('SELECT * FROM tarefas'); // instruções SQL com "Query Builder"
         $list = Tarefa::all(); // instruções com ORM "Enloquent"
         
         return view('tarefas.list', [
-            'list' => $list
+            'list' => $list,
+            'name' => $user->name,
+            'permissao' => Gate::allows('add-user')
+
         ]);
     }
 
     public function add(){
-        return view('tarefas.add');
+        //Só permite usuários admin adicionar outros usuários...
+        if(Gate::allows('add-user')){
+            return view('tarefas.add');
+        }else{
+            return redirect()->route('tarefas.list');
+        }
     }
 
     public function addAction(Request $request){
